@@ -16,40 +16,32 @@ file_name = 'data/raw/Sara.txt'
 file_object = open(file=file_name, mode = 'r')
 
 #Read contents of file into a list
-line_list = file_object.readlines()
-
-#Close the file
-file_object.close()
+lineString = file_object.readline()
 
 #Pretend we read or extract one line of data from the file
-for lineString in line_list:
+while lineString:
     
     #Check to see if the lineString is a data line
     if lineString[0] =="#" or lineString[0] == 'u':
+        lineStrin = file_object.readline()
         continue
 
     #Split the string into a list of data items
     lineData = lineString.split()
     
     #Extract items in list into variables
-    record_id = lineData[0]
-    obs_date = lineData[2]
-    obs_lc = lineData[4]
-    obs_lat = lineData[6]
-    obs_lon = lineData[7]
+    record_id = lineData[0] # ARGOS tracking record ID
+    obs_date = lineData[2]   # Observation date
+    ob_lc = lineData[4]       # Observation Location Class
+    obs_lat = lineData[6]     # Observation Latitude
+    obs_lon = lineData[7]     # Observation Longitude
     
     #Print the location of sara
     print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
+    
+    #Move to the next line in the file
+    lineString = file_object.readline()
 
-#Split lineString into a list of items
-lineData = lineString.split()
+#CLose the file object
+file_object.close()
 
-#Assign variables to items in the lineData list
-record_id = lineData[0] # ARGOS tracking record ID
-obs_date = lineData[2]   # Observation date
-ob_lc = lineData[4]       # Observation Location Class
-obs_lat = lineData[6]     # Observation Latitude
-obs_lon = lineData[7]     # Observation Longitude
-
-# Print information to the use
-print (f"Record {record_id} indicates Sara was seen at {obs_lat}N and {obs_lon}W on {obs_date}")
