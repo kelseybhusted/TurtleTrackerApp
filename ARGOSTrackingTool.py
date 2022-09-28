@@ -23,7 +23,7 @@ while lineString:
     
     #Check to see if the lineString is a data line
     if lineString[0] =="#" or lineString[0] == 'u':
-        lineStrin = file_object.readline()
+        lineString = file_object.readline()
         continue
 
     #Split the string into a list of data items
