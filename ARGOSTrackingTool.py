@@ -9,6 +9,9 @@
 # Date:   Fall 2022
 #--------------------------------------------------------------
 
+# Ask the user for a date, specifying the format
+user_date = input("Enter a date (M/D/YYYY):")
+
 #Create a variable pointing to the data file
 file_name = 'data/raw/Sara.txt'
 
@@ -47,19 +50,26 @@ for lineString in line_list:
     if obs_lc in ('1', '2', '3'):
         date_dict[record_id] = obs_date
         location_dict[record_id] = (obs_lat, obs_lon)
+
+# Create List  to hold keyes
+matching_keys = []
+
+# Loop through all key, value pairs in the date_dictionary
+for the_key, the_value in date_dict.items():
+    #See if the date (the value) matches the user date
+    if the_value == user_date:
+        #Add matching keys to list
+        matching_keys.append(the_key)
+     
+# Report whether no keys were found
+if len(matching_keys) == 0:
+    print(f"Sara was not located on {user_date}")
+
+#Reveal locations for each key in matching_keys
+for matching_key in matching_keys:
+    obs_lat, obs_lon = location_dict[matching_key]
+    print(f"Record {matching_key} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {user_date}")
     
     #Print the location of sara
     #print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
 
-#Split lineString into a list of items
-lineData = lineString.split()
-
-#Assign variables to items in the lineData list
-record_id = lineData[0] # ARGOS tracking record ID
-obs_date = lineData[2]   # Observation date
-ob_lc = lineData[4]       # Observation Location Class
-obs_lat = lineData[6]     # Observation Latitude
-obs_lon = lineData[7]     # Observation Longitude
-
-# Print information to the use
-print (f"Record {record_id} indicates Sara was seen at {obs_lat}N and {obs_lon}W on {obs_date}")
